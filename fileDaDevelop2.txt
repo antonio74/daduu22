@@ -1,8 +1,10 @@
 file aggiunto dal 
 branch develop2
 
+<<<<<<< HEAD
 
 
 
-*****
-***** modifica da develop3
+
+***** modifica da develop2 ****************
+>>>>>>> develop2
