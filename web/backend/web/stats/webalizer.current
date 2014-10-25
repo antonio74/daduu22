@@ -1,0 +1,155 @@
+# Webalizer V2.23-05 Incremental Data - 10/14/2014 11:35:17
+2014 10 14 11 35 17
+71 49 2 11 3 2 629080 28 4 0 0 0
+1 30 30 13 14
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+41 27 370842 2 12 3 0 0
+30 22 258238 1 16 1 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+30 22 258238 16 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+21 19 244837 5 0 0
+20 8 126005 7 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0
+0
+0
+49
+0
+0
+0
+0
+0
+0
+0
+0
+12
+0
+8
+0
+0
+0
+0
+0
+0
+2
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+# -urls- 
+/assets/3bd94a81/yii.validation.js
+0 6 0 13284 0 0 0 0
+/assets/3bd94a81/yii.js
+0 6 0 17891 0 0 0 0
+/site/login
+0 9 0 16877 0 0 0 0
+/assets/70cab729/jquery.js
+0 6 0 368695 0 0 0 0
+/assets/a1ba7077/js/bootstrap.js
+0 6 0 63968 0 0 0 0
+/favicon.ico
+0 2 0 1248 0 0 0 0
+/assets/a1ba7077/css/bootstrap.css
+0 6 0 99499 0 0 0 0
+/site/index
+0 1 10 1923 0 0 0 0
+/css/site.css
+0 5 0 3128 0 0 0 0
+/
+0 4 0 6571 4 2 0 0
+/assets/3bd94a81/yii.activeForm.js
+0 6 0 27899 0 0 0 0
+# End Of Table - urls
+# -sites- (monthly)
+192.168.0.212
+0 41 32 380953 2 1413286517 0 0
+/site/login
+192.168.0.21
+0 30 17 248127 2 1413225403 0 0
+/site/login
+# End Of Table - sites (monthly)
+# -sites- (daily)
+192.168.0.212
+0 30 22 258238 1 1413286517 0 0
+/site/login
+# End Of Table - sites (daily)
+# -referrers- 
+http://backend.daduu22.ispeed.local/site/login
+1 33
+- (Direct Request)
+0 24
+http://backend.daduu22.ispeed.local/index.php
+1 14
+# End Of Table - referrers
+# -agents- 
+Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:32.0) Gecko/20100101 Firefox/32.0
+0 41
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:32.0) Gecko/20100101 Firefox/32.0
+0 30
+# End Of Table - agents
+# -search strings- 
+# End Of Table - search strings
+# -usernames- 
+# End Of Table - usernames
