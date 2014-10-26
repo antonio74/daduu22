@@ -3,16 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\Categoria;
-use common\models\CategoriaSearch;
+use common\models\Gruppo;
+use common\models\GruppoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CategoriaController implements the CRUD actions for Categoria model.
+ * GruppoController implements the CRUD actions for Gruppo model.
  */
-class CategoriaController extends Controller
+class GruppoController extends Controller
 {
     public function behaviors()
     {
@@ -27,12 +27,12 @@ class CategoriaController extends Controller
     }
 
     /**
-     * Lists all Categoria models.
+     * Lists all Gruppo models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new CategoriaSearch();
+        $searchModel = new GruppoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -42,7 +42,7 @@ class CategoriaController extends Controller
     }
 
     /**
-     * Displays a single Categoria model.
+     * Displays a single Gruppo model.
      * @param integer $id
      * @return mixed
      */
@@ -54,13 +54,13 @@ class CategoriaController extends Controller
     }
 
     /**
-     * Creates a new Categoria model.
+     * Creates a new Gruppo model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Categoria();
+        $model = new Gruppo();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -72,7 +72,7 @@ class CategoriaController extends Controller
     }
 
     /**
-     * Updates an existing Categoria model.
+     * Updates an existing Gruppo model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -91,7 +91,7 @@ class CategoriaController extends Controller
     }
 
     /**
-     * Deletes an existing Categoria model.
+     * Deletes an existing Gruppo model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -104,15 +104,15 @@ class CategoriaController extends Controller
     }
 
     /**
-     * Finds the Categoria model based on its primary key value.
+     * Finds the Gruppo model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Categoria the loaded model
+     * @return Gruppo the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Categoria::findOne($id)) !== null) {
+        if (($model = Gruppo::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

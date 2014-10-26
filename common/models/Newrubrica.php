@@ -3,7 +3,7 @@
 namespace common\models;
 
 use Yii;
-use backend\models\Categoria;
+use common\models\Categoria;
 
 /**
  * This is the model class for table "newrubrica".

@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\Categoria;
+use common\models\Categoria;
 use common\models\Newrubrica;
 use common\models\NewrubricaSearch;
 use yii\web\Controller;

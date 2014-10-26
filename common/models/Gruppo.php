@@ -1,26 +1,24 @@
 <?php
 
-namespace backend\models;
+namespace common\models;
 
 use Yii;
 
 /**
- * This is the model class for table "categoria".
+ * This is the model class for table "gruppo".
  *
  * @property integer $id
  * @property string $nome
  * @property string $descrizione
- *
- * @property Newrubrica[] $newrubricas
  */
-class Categoria extends \yii\db\ActiveRecord
+class Gruppo extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'categoria';
+        return 'gruppo';
     }
 
     /**
@@ -45,13 +43,5 @@ class Categoria extends \yii\db\ActiveRecord
             'nome' => Yii::t('app', 'Nome'),
             'descrizione' => Yii::t('app', 'Descrizione'),
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getNewrubricas()
-    {
-        return $this->hasMany(Newrubrica::className(), ['id_categoria' => 'id']);
     }
 }

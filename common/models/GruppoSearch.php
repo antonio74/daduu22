@@ -1,16 +1,16 @@
 <?php
 
-namespace backend\models;
+namespace common\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\Categoria;
+use common\models\Gruppo;
 
 /**
- * CategoriaSearch represents the model behind the search form about `backend\models\Categoria`.
+ * GruppoSearch represents the model behind the search form about `common\models\Gruppo`.
  */
-class CategoriaSearch extends Categoria
+class GruppoSearch extends Gruppo
 {
     /**
      * @inheritdoc
@@ -41,7 +41,7 @@ class CategoriaSearch extends Categoria
      */
     public function search($params)
     {
-        $query = Categoria::find();
+        $query = Gruppo::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
