@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\helpers\ArrayHelper;
+use common\models\Gruppo;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Newrubrica */
@@ -10,13 +11,19 @@ use yii\helpers\ArrayHelper;
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Newrubricas'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-$idg = $_GET['idg'];
+$model->gruppi = $model->getCheckedGroups();
+$nomiGruppi = Gruppo::getGruppi();
+$gruppi = "";
+foreach ($model->gruppi as $key => $value) {
+    if ($gruppi!==""){
+        $gruppi = $gruppi.", ";
+    }
+    $gruppi = $gruppi.$nomiGruppi[$value];
+}
 ?>
 <div class="newrubrica-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <h1>idg: <?= Html::encode($idg[0]) ?></h1>
 
     <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -39,7 +46,8 @@ $idg = $_GET['idg'];
             'nome',
             'mobile',
             'email:email',
-            [ 'label' => 'Categoria', 'value' => $model->idCategoria->nome ]
+            [ 'label' => 'Categoria', 'value' => $model->idCategoria->nome ],
+            [ 'label' =>'Gruppi', 'value' => $gruppi],
         ],
     ]) ?>
 

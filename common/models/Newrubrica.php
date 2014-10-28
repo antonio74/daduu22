@@ -71,4 +71,30 @@ class Newrubrica extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Categoria::className(), ['id' => 'id_categoria']);
     }
+
+
+
+    public function afterSave($insert)
+    {
+        $gruppi = $this->gruppi;
+        $connection = \Yii::$app->db;
+        // if not a new contact, delete all groups 
+        if(!$insert){
+            $sql = $connection->createCommand("DELETE FROM gruppicontatti WHERE id_contatto = $this->id")->execute();
+        }
+        foreach ($gruppi as $key => $gruppo) {
+            $sql = $connection->createCommand()->insert('gruppicontatti', ['id_contatto' => $this->id, 'id_gruppo' => $gruppo])->execute();
+        }
+    }
+
+
+
+    public function getCheckedGroups(){
+        $connection = \Yii::$app->db;
+        $id = $this->id;
+        $sql = $connection->createCommand("SELECT id_gruppo FROM gruppicontatti WHERE id_contatto = $id")->queryColumn();
+        return $sql;
+
+    }
+
 }

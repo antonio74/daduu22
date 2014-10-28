@@ -15,6 +15,7 @@ $gruppi = Gruppo::getGruppi();
 
 <div class="newrubrica-form">
 
+
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'cognome')->textInput(['maxlength' => 255]) ?>

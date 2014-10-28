@@ -103,8 +103,9 @@ class NewrubricaController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            $model->gruppi = $model->getCheckedGroups();
             return $this->render('update', [
-                'model' => $model, 'categorie' => $categorie
+                'model' => $model, 'categorie' => $categorie,
             ]);
         }
     }
