@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
+
 
 /**
  * This is the model class for table "gruppo".
@@ -10,6 +12,8 @@ use Yii;
  * @property integer $id
  * @property string $nome
  * @property string $descrizione
+ *
+ * @property Gruppicontatti[] $gruppicontattis
  */
 class Gruppo extends \yii\db\ActiveRecord
 {
@@ -43,5 +47,23 @@ class Gruppo extends \yii\db\ActiveRecord
             'nome' => Yii::t('app', 'Nome'),
             'descrizione' => Yii::t('app', 'Descrizione'),
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGruppicontattis()
+    {
+        return $this->hasMany(Gruppicontatti::className(), ['id_gruppo' => 'id']);
+    }
+
+    /**
+     * @return array of group's names
+     */    
+    public function getGruppi()
+    {
+        $queryGruppi = Gruppo::find()->asArray()->all(); 
+        $arrayGruppi = ArrayHelper::map($queryGruppi, 'id', 'nome');
+        return $arrayGruppi;
     }
 }

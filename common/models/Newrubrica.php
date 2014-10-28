@@ -3,7 +3,6 @@
 namespace common\models;
 
 use Yii;
-use common\models\Categoria;
 
 /**
  * This is the model class for table "newrubrica".
@@ -15,6 +14,7 @@ use common\models\Categoria;
  * @property string $email
  * @property integer $id_categoria
  *
+ * @property Gruppicontatti[] $gruppicontattis
  * @property Categoria $idCategoria
  */
 class Newrubrica extends \yii\db\ActiveRecord
@@ -22,6 +22,8 @@ class Newrubrica extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public $gruppi = array();
+
     public static function tableName()
     {
         return 'newrubrica';
@@ -33,9 +35,9 @@ class Newrubrica extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cognome', 'nome', 'email', 'id_categoria'], 'required'],
+            [['cognome', 'nome', 'email', 'gruppi'], 'required'],
             [['id_categoria'], 'integer'],
-            [['cognome', 'nome', 'mobile', 'email'], 'string', 'max' => 255]
+            [['cognome', 'nome', 'mobile', 'email'], 'string', 'max' => 255],
         ];
     }
 
@@ -52,6 +54,14 @@ class Newrubrica extends \yii\db\ActiveRecord
             'email' => Yii::t('app', 'Email'),
             'id_categoria' => Yii::t('app', 'Categoria'),
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGruppicontattis()
+    {
+        return $this->hasMany(Gruppicontatti::className(), ['id_contatto' => 'id']);
     }
 
     /**

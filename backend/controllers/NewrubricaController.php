@@ -6,6 +6,7 @@ use Yii;
 use common\models\Categoria;
 use common\models\Newrubrica;
 use common\models\NewrubricaSearch;
+use common\models\Gruppicontatti;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -54,7 +55,7 @@ class NewrubricaController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($id), 
         ]);
     }
 
@@ -68,9 +69,9 @@ class NewrubricaController extends Controller
         $model = new Newrubrica();
 
         /* First solution: Database connection and query execution */
-        $connection = \Yii::$app->db;
-        $sql = $connection->createCommand('SELECT nome FROM categoria');
-        $categorie1 = $sql->queryColumn(); 
+        //$connection = \Yii::$app->db;
+        //$sql = $connection->createCommand('SELECT nome FROM categoria');
+        //$categorie1 = $sql->queryColumn(); 
 
         /* Second solution: Using methods of Model Categoria and Yii2 ArrayHelper
            to map attributes 'id' abd 'nome' into an array */ 
@@ -78,11 +79,11 @@ class NewrubricaController extends Controller
         $categorie = ArrayHelper::map($categorie2, 'id', 'nome'); 
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id, 'idg' => $model->gruppi]);
         } else {
             /* passage of parameter $categorie to 'create' view, and then to '_form' partial */
             return $this->render('create', [
-                'model' => $model, 'categorie1' => $categorie1, 'categorie' => $categorie
+                'model' => $model, 'categorie' => $categorie
             ]);
         }
     }
