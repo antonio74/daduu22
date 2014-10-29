@@ -11,6 +11,7 @@ use common\models\Gruppo;
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Newrubricas'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
 $model->gruppi = $model->getCheckedGroups();
 $nomiGruppi = Gruppo::getGruppi();
 $gruppi = "";
@@ -21,6 +22,7 @@ foreach ($model->gruppi as $key => $value) {
     $gruppi = $gruppi.$nomiGruppi[$value];
 }
 ?>
+
 <div class="newrubrica-view">
 
     <h1><?= Html::encode($this->title) ?></h1>

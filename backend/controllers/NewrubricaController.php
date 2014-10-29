@@ -79,7 +79,7 @@ class NewrubricaController extends Controller
         $categorie = ArrayHelper::map($categorie2, 'id', 'nome'); 
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id, 'idg' => $model->gruppi]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             /* passage of parameter $categorie to 'create' view, and then to '_form' partial */
             return $this->render('create', [

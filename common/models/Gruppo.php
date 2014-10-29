@@ -60,7 +60,7 @@ class Gruppo extends \yii\db\ActiveRecord
     /**
      * @return array of group's names
      */    
-    public function getGruppi()
+    public static function getGruppi()
     {
         $queryGruppi = Gruppo::find()->asArray()->all(); 
         $arrayGruppi = ArrayHelper::map($queryGruppi, 'id', 'nome');

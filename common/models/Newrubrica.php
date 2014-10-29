@@ -74,7 +74,7 @@ class Newrubrica extends \yii\db\ActiveRecord
 
 
 
-    public function afterSave($insert)
+    public function afterSave($insert, $changedAttributes)
     {
         $gruppi = $this->gruppi;
         $connection = \Yii::$app->db;
