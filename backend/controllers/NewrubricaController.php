@@ -37,8 +37,7 @@ class NewrubricaController extends Controller
      */
     public function actionIndex()
     {
-        $categorie2 = Categoria::find()->asArray()->all(); 
-        $categorie = ArrayHelper::map($categorie2, 'id', 'nome'); 
+        $categorie = Categoria::getCategorie();   
         $searchModel = new NewrubricaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('index', [
@@ -67,16 +66,7 @@ class NewrubricaController extends Controller
     public function actionCreate()
     {
         $model = new Newrubrica();
-
-        /* First solution: Database connection and query execution */
-        //$connection = \Yii::$app->db;
-        //$sql = $connection->createCommand('SELECT nome FROM categoria');
-        //$categorie1 = $sql->queryColumn(); 
-
-        /* Second solution: Using methods of Model Categoria and Yii2 ArrayHelper
-           to map attributes 'id' abd 'nome' into an array */ 
-        $categorie2 = Categoria::find()->asArray()->all(); 
-        $categorie = ArrayHelper::map($categorie2, 'id', 'nome'); 
+        $categorie = Categoria::getCategorie();   
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -97,13 +87,12 @@ class NewrubricaController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $categorie2 = Categoria::find()->asArray()->all(); 
-        $categorie = ArrayHelper::map($categorie2, 'id', 'nome'); 
+        $categorie = Categoria::getCategorie();   
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            $model->gruppi = $model->getCheckedGroups();
+            //$model->gruppi = $model->getGruppiContattis()->select('id_gruppo')->column(); //$model->getCheckedGroups();
             return $this->render('update', [
                 'model' => $model, 'categorie' => $categorie,
             ]);

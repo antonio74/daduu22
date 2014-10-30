@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
+
 
 /**
  * This is the model class for table "categoria".
@@ -53,5 +55,15 @@ class Categoria extends \yii\db\ActiveRecord
     public function getNewrubricas()
     {
         return $this->hasMany(Newrubrica::className(), ['id_categoria' => 'id']);
+    }
+
+     /**
+     * @return an array with id and name of categories 
+     */
+    public static function getCategorie()
+    {
+        $queryCategorie = Categoria::find()->asArray()->all(); 
+        $arrayCategorie = ArrayHelper::map($queryCategorie, 'id', 'nome'); 
+        return $arrayCategorie;
     }
 }

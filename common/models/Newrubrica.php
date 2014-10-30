@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use common\models\Gruppicontatti;
 
 /**
  * This is the model class for table "newrubrica".
@@ -19,15 +20,27 @@ use Yii;
  */
 class Newrubrica extends \yii\db\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
-    public $gruppi = array();
-
     public static function tableName()
     {
         return 'newrubrica';
     }
+
+    // Array of group's ids to which contact belong
+    public $gruppi = array();
+
+
+    /**
+     * @inheritdoc
+     */    
+    public function afterFind()
+    {
+        $this->gruppi = $this->getGruppiContattis()->select('id_gruppo')->column();
+    }
+
 
     /**
      * @inheritdoc
@@ -73,22 +86,44 @@ class Newrubrica extends \yii\db\ActiveRecord
     }
 
 
-
+    /*
+    * 
+    */
     public function afterSave($insert, $changedAttributes)
     {
-        $gruppi = $this->gruppi;
         $connection = \Yii::$app->db;
         // if not a new contact, delete all groups 
         if(!$insert){
-            $sql = $connection->createCommand("DELETE FROM gruppicontatti WHERE id_contatto = $this->id")->execute();
+            Gruppicontatti::deleteAll('id_contatto = :id', [ ':id' => $this->id ]);
         }
-        foreach ($gruppi as $key => $gruppo) {
-            $sql = $connection->createCommand()->insert('gruppicontatti', ['id_contatto' => $this->id, 'id_gruppo' => $gruppo])->execute();
-        }
+
+        $gruppi = $this->gruppi;
+        $lenght = count($gruppi);
+        $contatti = array_fill(0, $lenght, $this->id);
+        $gruppicontatti= array_map(null, $contatti, $gruppi);
+        $connection->createCommand()->batchInsert('gruppicontatti', ['id_contatto', 'id_gruppo'], $gruppicontatti )->execute();
+
     }
 
 
 
+    public function stringaGruppi()
+    {
+        $nomiGruppi = Gruppo::getGruppi();
+        $gruppi = "";
+        foreach ($this->gruppi as $key => $idGruppo) {
+            if ($gruppi!==""){
+                $gruppi = $gruppi.", ";
+            }
+            $gruppi = $gruppi.$nomiGruppi[$idGruppo];
+        }
+        return $gruppi;
+    }
+
+
+
+
+    /************************************ Trovata soluzione utilizzando getGruppiContattis
     public function getCheckedGroups(){
         $connection = \Yii::$app->db;
         $id = $this->id;
@@ -96,5 +131,6 @@ class Newrubrica extends \yii\db\ActiveRecord
         return $sql;
 
     }
+    */
 
 }

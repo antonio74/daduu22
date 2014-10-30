@@ -12,15 +12,7 @@ $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Newrubricas'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-$model->gruppi = $model->getCheckedGroups();
-$nomiGruppi = Gruppo::getGruppi();
-$gruppi = "";
-foreach ($model->gruppi as $key => $value) {
-    if ($gruppi!==""){
-        $gruppi = $gruppi.", ";
-    }
-    $gruppi = $gruppi.$nomiGruppi[$value];
-}
+$gruppi = $model->stringaGruppi();
 ?>
 
 <div class="newrubrica-view">
