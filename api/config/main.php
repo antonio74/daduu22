@@ -30,6 +30,9 @@ return [
             'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'gruppicontatti'],                         
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'gruppo'],             
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'categoria'],             
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'newrubrica'],             
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'user'], 
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'post',

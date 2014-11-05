@@ -1,7 +1,7 @@
-# Webalizer V2.23-05 Incremental Data - 10/14/2014 11:35:17
-2014 10 14 11 35 17
-71 49 2 11 3 2 629080 28 4 0 0 0
-1 30 30 13 14
+# Webalizer V2.23-05 Incremental Data - 10/29/2014 17:10:57
+2014 10 29 17 10 57
+1087 435 3 42 36 3 3146893 568 12 0 0 0
+1 13 246 13 29
 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
@@ -17,20 +17,20 @@
 41 27 370842 2 12 3 0 0
 30 22 258238 1 16 1 0 0
 0 0 0 0 0 0 0 0
+119 54 342487 1 41 1 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+450 129 1126618 1 240 1 0 0
+75 25 74554 1 37 3 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+223 87 423735 1 99 2 0 0
 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0
+149 91 550419 1 123 1 0 0
 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
 0 0 0 0 0 0
@@ -42,25 +42,25 @@
 0 0 0 0 0 0
 0 0 0 0 0 0
 0 0 0 0 0 0
+77 15 198505 26 0 0
+246 26 509050 105 0 0
+157 110 677301 125 0 0
 0 0 0 0 0 0
 0 0 0 0 0 0
-30 22 258238 16 0 0
+29 11 27003 12 0 0
+57 14 144680 19 0 0
+327 151 817527 198 0 0
+55 46 304335 35 0 0
+139 62 468492 48 0 0
 0 0 0 0 0 0
 0 0 0 0 0 0
 0 0 0 0 0 0
 0 0 0 0 0 0
 0 0 0 0 0 0
-21 19 244837 5 0 0
-20 8 126005 7 0 0
-0 0 0 0 0 0
-0 0 0 0 0 0
-0 0 0 0 0 0
-0 0 0 0 0 0
-0 0 0 0 0 0
 0
 0
 0
-49
+435
 0
 0
 0
@@ -69,16 +69,16 @@
 0
 0
 0
-12
+56
 0
-8
-0
-0
+439
 0
 0
 0
 0
-2
+0
+6
+122
 0
 0
 0
@@ -92,62 +92,195 @@
 0
 0
 0
-0
+29
 0
 0
 0
 0
 0
 # -urls- 
+/newrubricas/1
+0 6 0 10274 0 1 0 0
+/newrubrica
+0 16 0 35023 1 1 0 0
+/assets/2f402a41/gii.js
+0 13 0 18962 0 0 0 0
+/gruppo
+0 2 0 4028 0 0 0 0
+/gruppo/view
+0 5 0 8478 0 0 0 0
 /assets/3bd94a81/yii.validation.js
-0 6 0 13284 0 0 0 0
+0 11 0 16742 0 0 0 0
+/gii
+0 2 0 3202 0 0 0 0
 /assets/3bd94a81/yii.js
-0 6 0 17891 0 0 0 0
+0 83 0 40818 0 0 0 0
+/categoria/index
+0 8 0 16542 0 0 0 0
+/newrubrica/view
+0 35 0 61685 0 1 0 0
+/assets/3bd94a81/yii.gridView.js
+0 32 0 12344 0 0 0 0
+/assets/2cf70c30/typeahead.bundle.js
+0 13 0 100908 0 0 0 0
+/assets/a1ba7077/fonts/glyphicons-halflings-regular.woff
+0 5 0 47820 0 0 0 0
+/new-rubrica/update
+0 2 0 4213 0 0 0 0
 /site/login
-0 9 0 16877 0 0 0 0
+0 30 0 55820 0 1 0 0
 /assets/70cab729/jquery.js
-0 6 0 368695 0 0 0 0
+0 83 0 532011 0 0 0 0
 /assets/a1ba7077/js/bootstrap.js
-0 6 0 63968 0 0 0 0
+0 80 0 104684 0 0 0 0
+/gii/crud
+0 27 0 99084 0 0 0 0
 /favicon.ico
-0 2 0 1248 0 0 0 0
+0 4 0 1623 0 0 0 0
+/new-rubrica/index
+0 7 0 14646 0 1 0 0
+/new-rubrica/view
+0 2 0 3430 0 0 0 0
 /assets/a1ba7077/css/bootstrap.css
-0 6 0 99499 0 0 0 0
+0 80 0 154478 0 0 0 0
+/newrubrica/create
+0 17 0 35806 1 0 0 0
+/assets/2f402a41/main.css
+0 13 0 13057 0 0 0 0
+/categoria/create
+0 3 0 6118 0 0 0 0
+/newrubrica/update
+0 13 0 30474 0 0 0 0
 /site/index
-0 1 10 1923 0 0 0 0
+0 2 0 3847 0 0 0 0
 /css/site.css
-0 5 0 3128 0 0 0 0
+0 78 0 19857 0 0 0 0
+/categoria
+0 2 0 3946 0 0 0 0
 /
-0 4 0 6571 4 2 0 0
+0 38 0 72161 7 2 0 0
+/newrubrica/index
+0 60 0 134421 0 1 0 0
+/new-rubrica
+0 1 0 1918 0 0 0 0
+/new-rubrica/create
+0 2 0 4131 0 0 0 0
+/gruppo/index
+0 5 0 10532 0 0 0 0
+/gii/default/preview
+0 4 0 4124 0 0 0 0
+/gii/model
+0 18 0 67711 1 0 0 0
+/categoria/view
+0 11 0 18651 0 0 0 0
+/gruppo/create
+0 5 0 10171 0 0 0 0
 /assets/3bd94a81/yii.activeForm.js
-0 6 0 27899 0 0 0 0
+0 11 0 34280 0 0 0 0
+/assets/2f402a41/logo.png
+1 13 0 49922 0 0 0 0
+/categoria/update
+0 2 0 4164 0 0 0 0
+/newrubricas
+0 30 0 62146 0 1 0 0
 # End Of Table - urls
 # -sites- (monthly)
+192.168.0.208
+0 372 178 974154 3 1414602657 0 0
+/gruppo
 192.168.0.212
-0 41 32 380953 2 1413286517 0 0
-/site/login
+0 685 240 1924612 7 1413913679 0 0
+/gii/model
 192.168.0.21
 0 30 17 248127 2 1413225403 0 0
 /site/login
 # End Of Table - sites (monthly)
 # -sites- (daily)
-192.168.0.212
-0 30 22 258238 1 1413286517 0 0
-/site/login
+192.168.0.208
+0 149 91 550419 1 1414602657 0 0
+/gruppo
 # End Of Table - sites (daily)
 # -referrers- 
+http://backend.daduu22.ispeed.local/newrubrica/create
+1 23
+http://backend.daduu22.ispeed.local/newrubricas/1
+1 3
+http://backend.daduu22.ispeed.local/site/logout
+1 2
+http://backend.daduu22.ispeed.local/gruppo/create
+1 12
+http://backend.daduu22.ispeed.local/gruppo/view
+1 5
+http://backend.daduu22.ispeed.local/new-rubrica/view
+1 2
+http://backend.daduu22.ispeed.local/NewRubricas
+1 50
+http://backend.daduu22.ispeed.local/newrubrica
+1 108
+http://backend.daduu22.ispeed.local/newrubricas
+1 86
+http://backend.daduu22.ispeed.local/newRubricas
+1 60
+http://backend.daduu22.ispeed.local/new-rubrica/update
+1 1
+http://backend.daduu22.ispeed.local/gii
+1 39
+http://backend.daduu22.ispeed.local/categoria/index
+1 5
 http://backend.daduu22.ispeed.local/site/login
-1 33
+1 68
 - (Direct Request)
-0 24
+0 222
+http://backend.daduu22.ispeed.local/newrubrica/1
+1 5
+http://backend.daduu22.ispeed.local/gii/crud
+1 68
+http://backend.daduu22.ispeed.local/new-rubrica/create
+1 4
+http://backend.daduu22.ispeed.local/
+1 30
+http://backend.daduu22.ispeed.local/categoria/view
+1 9
+http://backend.daduu22.ispeed.local/gii/model
+1 35
+http://backend.daduu22.ispeed.local/new-rubrica/index
+1 8
+http://backend.daduu22.ispeed.local/categoria/create
+1 6
+http://backend.daduu22.ispeed.local/newrubrica/update
+1 21
+http://backend.daduu22.ispeed.local/newrubrica/view
+1 57
+http://backend.daduu22.ispeed.local/assets/a1ba7077/css/bootstrap.css
+1 5
+http://backend.daduu22.ispeed.local/New Rubricas
+1 5
+http://backend.daduu22.ispeed.local/newrubrica/index
+1 118
+http://backend.daduu22.ispeed.local/categoria/update
+1 1
+http://backend.daduu22.ispeed.local/new-rubrica
+1 7
 http://backend.daduu22.ispeed.local/index.php
 1 14
+http://backend.daduu22.ispeed.local/gruppo/index
+1 4
+http://backend.daduu22.ispeed.local/gruppo
+1 1
+http://backend.daduu22.ispeed.local/site/index
+1 1
+http://backend.daduu22.ispeed.local/categoria
+1 1
+http://backend.daduu22.ispeed.local/newRubrica/1
+1 1
 # End Of Table - referrers
 # -agents- 
 Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:32.0) Gecko/20100101 Firefox/32.0
-0 41
+0 160
 Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:32.0) Gecko/20100101 Firefox/32.0
 0 30
+Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:33.0) Gecko/20100101 Firefox/33.0
+0 897
 # End Of Table - agents
 # -search strings- 
 # End Of Table - search strings
