@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'id_categoria',
              'format' => 'raw',
              'value' => function ($data) {
-                        return Html::a($data->idCategoria->nome, ['/categoria/view', 'id' =>$data->idCategoria->id]);
+                        return Html::a($data->categoria->nome, ['/categoria/view', 'id' =>$data->categoria->id]);
                     },
             ],
 

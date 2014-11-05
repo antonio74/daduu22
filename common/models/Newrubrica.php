@@ -80,7 +80,7 @@ class Newrubrica extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getIdCategoria()
+    public function getCategoria()
     {
         return $this->hasOne(Categoria::className(), ['id' => 'id_categoria']);
     }
@@ -122,8 +122,15 @@ class Newrubrica extends \yii\db\ActiveRecord
 
 
 
+    public function extraFields()
+    {
+        return ['categoria'];
+        return ['gruppicontattis'];
 
-    /************************************ Trovata soluzione utilizzando getGruppiContattis
+    }
+
+
+    /************************************ Eliminata: Trovata soluzione utilizzando getGruppiContattis
     public function getCheckedGroups(){
         $connection = \Yii::$app->db;
         $id = $this->id;

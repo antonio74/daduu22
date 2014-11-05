@@ -14,5 +14,4 @@ class NewrubricaController extends ActiveController
 {
   public $modelClass = 'common\models\Newrubrica';
 
-
 }

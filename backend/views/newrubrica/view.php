@@ -40,7 +40,7 @@ $gruppi = $model->stringaGruppi();
             'nome',
             'mobile',
             'email:email',
-            [ 'label' => 'Categoria', 'value' => $model->idCategoria->nome ],
+            [ 'label' => 'Categoria', 'value' => $model->categoria->nome ],
             [ 'label' =>'Gruppi', 'value' => $gruppi],
         ],
     ]) ?>
