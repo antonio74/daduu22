@@ -122,13 +122,6 @@ class Newrubrica extends \yii\db\ActiveRecord
 
 
 
-    public function extraFields()
-    {
-        return ['categoria'];
-        return ['gruppicontattis'];
-
-    }
-
 
     /************************************ Eliminata: Trovata soluzione utilizzando getGruppiContattis
     public function getCheckedGroups(){

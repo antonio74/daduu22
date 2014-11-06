@@ -12,7 +12,7 @@ use yii\db\Query;
 
 class GruppicontattiController extends ActiveController
 {
-  public $modelClass = 'common\models\Gruppicontatti';
+  public $modelClass = 'api\models\Gruppicontatti';
 
 
 }

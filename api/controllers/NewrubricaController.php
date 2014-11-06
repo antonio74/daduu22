@@ -12,6 +12,6 @@ use yii\db\Query;
 
 class NewrubricaController extends ActiveController
 {
-  public $modelClass = 'common\models\Newrubrica';
+  public $modelClass = 'api\models\Newrubrica';
 
 }
