@@ -6,7 +6,6 @@ class Gruppicontatti extends \common\models\Gruppicontatti
 {
 	public function fields()
 	{
-		//$fields=array();
 		$fields[]='id';
 		if(isset($_GET['expand'])){
 			$expand=explode(', ', $_GET['expand']);
@@ -29,6 +28,12 @@ class Gruppicontatti extends \common\models\Gruppicontatti
 		return ['id', 'id_contatto', 'id_gruppo' ];
 	}
 
+
+	/*********
+	 * Esempio: http://host/gruppicontattis?expand=idContatto, idGruppo
+	 * @return l'oggetto con cui è in relazione utilizzando l'omonima funzione del Model ( getIdContatto, getIdGruppo )
+	 */
+	
     public function extraFields()
     {
         return ['idContatto', 'idGruppo'];
