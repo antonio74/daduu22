@@ -38,6 +38,7 @@ class Newrubrica extends \yii\db\ActiveRecord
      */    
     public function afterFind()
     {
+        //$newrubricas=$this->find()->where(['nome'=>'Antonio']);
         $this->gruppi = $this->getGruppiContattis()->select('id_gruppo')->column();
     }
 
