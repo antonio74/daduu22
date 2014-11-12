@@ -5,7 +5,6 @@ namespace api\controllers;
 use yii;
 use yii\rest\ActiveController;
 use yii\rest\Controller;
-use \common\models\Newrubrica;
 use \api\models\NewrubricaSearch;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
@@ -40,16 +39,16 @@ class NewrubricaController extends ActiveController
     // prepara e restituisce un data provider per la action "index"
     $params=$_REQUEST;
     $filter=array();
-    $sort="";
-    $page=1;
-    $limit=10;
-    $offset=$limit*($page-1);
+    $expand='';
+    //$sort="";  $page=1; $limit=10;  $offset=$limit*($page-1);
  
  
     // Filter elements 
     if(isset($params['filter']))
       $filter=(array)json_decode($params['filter']);    
 
+    if(isset($params['expand']))
+      $expand=$params['expand'];
     /* Implementare ordinamento 
     if(isset($params['sort']))
       {
@@ -63,7 +62,7 @@ class NewrubricaController extends ActiveController
     }    */
 
     $searchModel = new NewrubricaSearch();
-    $dataProvider = $searchModel->search(['NewrubricaSearch'=>$filter]);
+    $dataProvider = $searchModel->search(['NewrubricaSearch'=>$filter, 'expand'=>$expand]);
     return $dataProvider;
 
     //$dataProvider->sort->attributes['newrubrica']=['desc' => ['newrubrica.cognome' => SORT_DESC]];
@@ -81,7 +80,7 @@ class NewrubricaController extends ActiveController
  
     header($status_header);
     header('Content-type: ' . $content_type);
-    header('X-Powered-By: ' . "Nintriva <nintriva.com>");
+    header('X-Powered-By: ' . "Antonio");
   }
 
   private function _getStatusCodeMessage($status)

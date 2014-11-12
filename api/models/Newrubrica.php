@@ -28,7 +28,7 @@ class Newrubrica extends \common\models\Newrubrica
 
 	/**
 	 * Esempio: http://host/newrubrica?expand=categoria, gruppis
-	 * @return l'oggetto con cui è in relazione utilizzando l'omonima funzione del Model ( getCategoria, getGruppi )
+	 * @return l'oggetto con cui è in relazione utilizzando le omonime funzioni del Model ( getCategoria, getGruppis )
 	 */
     public function extraFields()
     {
