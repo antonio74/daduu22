@@ -28,19 +28,22 @@ class NewrubricaController extends ActiveController
   }
 
   /**
-   * Ricrea il dataprovider dell'action index utilizzando Newrubricasearch per filtrare
-   * le tuple di contatti attraverso più attributi.
+   * Prepara e restituisce un data provider per la action index utilizzando Newrubricasearch 
+   * per filtrare le tuple di contatti attraverso più attributi ed ordinarle rispetto ad uno.
+   * L'ordinamento può essere fatto anche per categoria o gruppo.
+   * crescente: sort=attributo.
+   * decrescente: sort=-attributo.
    *
-   * Esempio: http://host?filter={"attributo1":"valore1", "attributo2":"valore2"}
+   * Esempio: http://host?filter={"attributo1":"valore1", "attributo2":"valore2"}&sort=attributo2
    * @return ActiveDataProvider  
    */
   public function prepareDataProvider()
   {
-    // prepara e restituisce un data provider per la action "index"
     $params=$_REQUEST;
     $filter=array();
     $expand='';
-    //$sort="";  $page=1; $limit=10;  $offset=$limit*($page-1);
+    $sort='';
+    // $page=1; $limit=10;  $offset=$limit*($page-1);
  
  
     // Filter elements 
@@ -49,23 +52,16 @@ class NewrubricaController extends ActiveController
 
     if(isset($params['expand']))
       $expand=$params['expand'];
-    /* Implementare ordinamento 
+    
+    // Implementare ordinamento 
     if(isset($params['sort']))
-      {
         $sort=$params['sort'];
-     	  if(isset($params['order']))
-      		{  
-         		if($params['order']=="false")
-         			$sort.=" desc";
-         		else $sort.=" asc"; 
-       		}
-    }    */
+
 
     $searchModel = new NewrubricaSearch();
-    $dataProvider = $searchModel->search(['NewrubricaSearch'=>$filter, 'expand'=>$expand]);
+    $dataProvider = $searchModel->search(['NewrubricaSearch'=>$filter, 'expand'=>$expand, 'sort' =>$sort]);
     return $dataProvider;
 
-    //$dataProvider->sort->attributes['newrubrica']=['desc' => ['newrubrica.cognome' => SORT_DESC]];
     //return array('status'=>1,'data'=>$dataProvider,'totalItems'=>'1');
  
   }

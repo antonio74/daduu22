@@ -45,7 +45,6 @@ class NewrubricaSearch extends \common\models\NewrubricaSearch
             }    
         }
         
-        
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -64,14 +63,23 @@ class NewrubricaSearch extends \common\models\NewrubricaSearch
             ->andFilterWhere(['like', 'mobile', $this->mobile])
             ->andFilterWhere(['like', 'email', $this->email])            
             ->andFilterWhere(['like', 'id_categoria', $this->id_categoria]);
-            
-        // Filtri per categoria e gruppo
+
+
+        // Aggiungo filtro e orinamento per categoria e gruppo solo se settati entrambi i parametri expand e sort
         if(isset($expand))
             foreach ($expand as $value) {
-                if($value =='categoria')
+                if($value =='categoria'){
                     $query->andFilterWhere(['like', 'categoria.nome', $this->categoria]);
-                elseif ($value =='gruppis')
+                    if(isset($params['sort']) && ltrim($params['sort'], '-')=='categoria')
+                        $dataProvider->sort->attributes['categoria']=[ 'asc' => ['categoria.nome' => SORT_ASC], 
+                                                                        'desc' => ['categoria.nome' => SORT_DESC]]; 
+                }
+                elseif ($value =='gruppis'){
                     $query->andFilterWhere(['like', 'gruppo.nome', $this->gruppo]);
+                    if(isset($params['sort']) && ltrim($params['sort'], '-')=='gruppo')
+                        $dataProvider->sort->attributes['gruppo']=['asc' => ['gruppo.nome' => SORT_ASC], 
+                                                                    'desc' => ['gruppo.nome' => SORT_DESC]];                       
+                }              
             }
 
         return $dataProvider;
