@@ -38,9 +38,9 @@ class NewrubricaSearch extends \common\models\NewrubricaSearch
         if(isset($params['expand'])){
             $expand = explode(",", $params['expand']);
             foreach ($expand as $value) {
-                if($value =='categoria')
+                if(ltrim($value) =='categoria')
                     $query->joinWith('categoria');
-                elseif ($value =='gruppis')
+                elseif (ltrim($value) =='gruppis')
                     $query->joinWith('gruppis');                
             }    
         }
@@ -68,15 +68,15 @@ class NewrubricaSearch extends \common\models\NewrubricaSearch
         // Aggiungo filtro e orinamento per categoria e gruppo solo se settati entrambi i parametri expand e sort
         if(isset($expand))
             foreach ($expand as $value) {
-                if($value =='categoria'){
+                if(ltrim($value) =='categoria'){
                     $query->andFilterWhere(['like', 'categoria.nome', $this->categoria]);
-                    if(isset($params['sort']) && ltrim($params['sort'], '-')=='categoria')
+                    //if(isset($params['sort']) && ltrim($params['sort'], '-')=='categoria')
                         $dataProvider->sort->attributes['categoria']=[ 'asc' => ['categoria.nome' => SORT_ASC], 
                                                                         'desc' => ['categoria.nome' => SORT_DESC]]; 
                 }
-                elseif ($value =='gruppis'){
+                elseif (ltrim($value) =='gruppis'){
                     $query->andFilterWhere(['like', 'gruppo.nome', $this->gruppo]);
-                    if(isset($params['sort']) && ltrim($params['sort'], '-')=='gruppo')
+                    //if(isset($params['sort']) && ltrim($params['sort'], '-')=='gruppo')
                         $dataProvider->sort->attributes['gruppo']=['asc' => ['gruppo.nome' => SORT_ASC], 
                                                                     'desc' => ['gruppo.nome' => SORT_DESC]];                       
                 }              
