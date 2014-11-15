@@ -28,13 +28,10 @@ class NewrubricaController extends ActiveController
   }
 
   /**
-   * Prepara e restituisce un data provider per la action index utilizzando Newrubricasearch 
-   * per filtrare le tuple di contatti attraverso più attributi ed ordinarle rispetto ad uno.
-   * L'ordinamento può essere fatto anche per categoria o gruppo.
-   * crescente: sort=attributo.
-   * decrescente: sort=-attributo.
-   *
-   * Esempio: http://host?filter={"attributo1":"valore1", "attributo2":"valore2"}&sort=attributo2
+   * Prepara e restituisce un data provider per la action index utilizzando Newrubricasearch per filtrare e 
+   * ordinare le tuple di contatti attraverso più attributi. Per filtrare e ordinare per categoria e gruppo
+   * deve essere impostato anche il rispettivo valore del parametro expand.
+   * Esempio: http://host?filter={"attributo1":"valore1", "attributo2":"valore2"}&sort={"attributo1":"asc", "attributo2":"desc"}
    * @return ActiveDataProvider  
    */
   public function prepareDataProvider()
@@ -53,13 +50,14 @@ class NewrubricaController extends ActiveController
     if(isset($params['expand']))
       $expand=$params['expand'];
     
-    // Implementare ordinamento 
+    // Sort elements 
     if(isset($params['sort']))
-        $sort=$params['sort'];
+        $sort=(array)json_decode($params['sort']);
 
 
     $searchModel = new NewrubricaSearch();
     $dataProvider = $searchModel->search(['NewrubricaSearch'=>$filter, 'expand'=>$expand, 'sort' =>$sort]);
+    $this->setHeader(200);
     return $dataProvider;
 
     //return array('status'=>1,'data'=>$dataProvider,'totalItems'=>'1');
@@ -76,7 +74,7 @@ class NewrubricaController extends ActiveController
  
     header($status_header);
     header('Content-type: ' . $content_type);
-    header('X-Powered-By: ' . "Antonio");
+    header('X-Powered-By: ' . "AntonioChiriacò");
   }
 
   private function _getStatusCodeMessage($status)

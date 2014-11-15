@@ -14,7 +14,7 @@ class NewrubricaSearch extends \common\models\NewrubricaSearch
   
     // add the public attributes that will be used to store the data to filter results
     public $categoria, $gruppo;
- 
+
     // add the rules to make those attributes safe
     public function rules()
     {
@@ -33,15 +33,22 @@ class NewrubricaSearch extends \common\models\NewrubricaSearch
      */
     public function search($params)
     {
+        $expandCategoria=false; 
+        $expandGruppo=false;
+ 
         $query = Newrubrica::find();
         // Join per poter filtrare anche attraverso categoria e gruppo
         if(isset($params['expand'])){
             $expand = explode(",", $params['expand']);
             foreach ($expand as $value) {
-                if(ltrim($value) =='categoria')
+                if(ltrim($value) =='categoria'){
                     $query->joinWith('categoria');
-                elseif (ltrim($value) =='gruppis')
-                    $query->joinWith('gruppis');                
+                    $expandCategoria=true;
+                }
+                elseif (ltrim($value) =='gruppis'){                    
+                    $query->joinWith('gruppis');   
+                    $expandGruppo=true;
+                }
             }    
         }
         
@@ -65,22 +72,38 @@ class NewrubricaSearch extends \common\models\NewrubricaSearch
             ->andFilterWhere(['like', 'id_categoria', $this->id_categoria]);
 
 
-        // Aggiungo filtro e orinamento per categoria e gruppo solo se settati entrambi i parametri expand e sort
+        // Filtro per categoria e gruppo solo se settato anche il rispettivo valore del parametro expand
         if(isset($expand))
             foreach ($expand as $value) {
                 if(ltrim($value) =='categoria'){
                     $query->andFilterWhere(['like', 'categoria.nome', $this->categoria]);
-                    //if(isset($params['sort']) && ltrim($params['sort'], '-')=='categoria')
-                        $dataProvider->sort->attributes['categoria']=[ 'asc' => ['categoria.nome' => SORT_ASC], 
-                                                                        'desc' => ['categoria.nome' => SORT_DESC]]; 
+                        /*$dataProvider->sort->attributes['categoria']=[ 'asc' => ['categoria.nome' => SORT_ASC], 
+                                                                        'desc' => ['categoria.nome' => SORT_DESC]]; */
                 }
                 elseif (ltrim($value) =='gruppis'){
                     $query->andFilterWhere(['like', 'gruppo.nome', $this->gruppo]);
-                    //if(isset($params['sort']) && ltrim($params['sort'], '-')=='gruppo')
-                        $dataProvider->sort->attributes['gruppo']=['asc' => ['gruppo.nome' => SORT_ASC], 
-                                                                    'desc' => ['gruppo.nome' => SORT_DESC]];                       
+                        /*$dataProvider->sort->attributes['gruppo']=['asc' => ['gruppo.nome' => SORT_ASC], 
+                                                                    'desc' => ['gruppo.nome' => SORT_DESC]]; */                      
                 }              
             }
+
+        // Ordinamento con controllo sintassi. I parametri non validi vengono ignorati
+        if(isset($params['sort']) && $params['sort']!=null){
+            $sort=$params['sort'];
+            $i=0;
+            $order='';
+            foreach ($sort as $attribute => $orderType) {
+                if(($attribute=='categoria' && $expandCategoria==true) || ($attribute=='gruppo' && $expandGruppo==true)){
+                    $order=$order . $attribute . '.nome ' . $orderType;
+                }
+                elseif(in_array($attribute, Newrubrica::fields(), true)==true)
+                    $order=$order . $attribute . ' ' . $orderType;
+                $i=$i+1;
+                if($i<count($sort))
+                    $order=$order . ', ';
+            }
+            $query->orderBy($order);
+        }
 
         return $dataProvider;
     }
