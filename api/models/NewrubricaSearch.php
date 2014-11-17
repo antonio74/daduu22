@@ -97,13 +97,13 @@ class NewrubricaSearch extends \common\models\NewrubricaSearch
                 if(($attribute=='categoria' && $expandCategoria==true) || ($attribute=='gruppo' && $expandGruppo==true)){
                     $order=$order . $attribute . '.nome ' . $orderType;
                 }
-                elseif(in_array($attribute, Newrubrica::fields(), true)==true)
+                elseif(in_array($attribute, $this->activeAttributes(), true)==true)
                     $order=$order . $attribute . ' ' . $orderType;
                 $i=$i+1;
                 if($i<count($sort))
                     $order=$order . ', ';
             }
-            //$order=implode($params['NewrubricaSearch']);
+            //$order="agaga" . implode(', ', Newrubrica::fields());
             $query->orderBy($order);
         }
 
