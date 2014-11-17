@@ -45,14 +45,15 @@ class NewrubricaController extends ActiveController
  
     // Filter elements 
     if(isset($params['filter']))
-      $filter=(array)json_decode($params['filter']);    
+      $filter=array_filter((array)json_decode($params['filter']), 'trim');   
+
 
     if(isset($params['expand']))
       $expand=$params['expand'];
     
     // Sort elements 
     if(isset($params['sort']))
-        $sort=(array)json_decode($params['sort']);
+        $sort=array_filter((array)json_decode($params['sort']), 'trim');
 
 
     $searchModel = new NewrubricaSearch();

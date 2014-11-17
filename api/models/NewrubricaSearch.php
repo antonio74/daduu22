@@ -20,6 +20,7 @@ class NewrubricaSearch extends \common\models\NewrubricaSearch
     {
         $rules = parent::rules();
         $rules[]= [['categoria', 'gruppo'], 'safe'];
+        $rules[]= [['categoria', 'gruppo'], 'trim'];
         return $rules;
     }
 
@@ -39,13 +40,13 @@ class NewrubricaSearch extends \common\models\NewrubricaSearch
         $query = Newrubrica::find();
         // Join per poter filtrare anche attraverso categoria e gruppo
         if(isset($params['expand'])){
-            $expand = explode(",", $params['expand']);
+            $expand = array_map('trim',explode(",", $params['expand']));
             foreach ($expand as $value) {
-                if(ltrim($value) =='categoria'){
+                if($value =='categoria'){
                     $query->joinWith('categoria');
                     $expandCategoria=true;
                 }
-                elseif (ltrim($value) =='gruppis'){                    
+                elseif ($value =='gruppis'){                    
                     $query->joinWith('gruppis');   
                     $expandGruppo=true;
                 }
@@ -69,18 +70,18 @@ class NewrubricaSearch extends \common\models\NewrubricaSearch
             ->andFilterWhere(['like', 'newrubrica.nome', $this->nome])
             ->andFilterWhere(['like', 'mobile', $this->mobile])
             ->andFilterWhere(['like', 'email', $this->email])            
-            ->andFilterWhere(['like', 'id_categoria', $this->id_categoria]);
+            ->andFilterWhere(['=', 'id_categoria', $this->id_categoria]);
 
 
         // Filtro per categoria e gruppo solo se settato anche il rispettivo valore del parametro expand
         if(isset($expand))
             foreach ($expand as $value) {
-                if(ltrim($value) =='categoria'){
+                if($value =='categoria'){
                     $query->andFilterWhere(['like', 'categoria.nome', $this->categoria]);
                         /*$dataProvider->sort->attributes['categoria']=[ 'asc' => ['categoria.nome' => SORT_ASC], 
                                                                         'desc' => ['categoria.nome' => SORT_DESC]]; */
                 }
-                elseif (ltrim($value) =='gruppis'){
+                elseif ($value =='gruppis'){
                     $query->andFilterWhere(['like', 'gruppo.nome', $this->gruppo]);
                         /*$dataProvider->sort->attributes['gruppo']=['asc' => ['gruppo.nome' => SORT_ASC], 
                                                                     'desc' => ['gruppo.nome' => SORT_DESC]]; */                      
@@ -102,6 +103,7 @@ class NewrubricaSearch extends \common\models\NewrubricaSearch
                 if($i<count($sort))
                     $order=$order . ', ';
             }
+            //$order=implode($params['NewrubricaSearch']);
             $query->orderBy($order);
         }
 
