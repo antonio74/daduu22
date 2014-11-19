@@ -15,14 +15,17 @@ class Newrubrica extends \common\models\Newrubrica
         return $this->hasMany(Gruppo::className(), ['id' => 'id_gruppo'])->via('gruppicontattis');
     }
 
+    // Quando è impostato il parametro GET expand=categoria elimina il campo superfluo id_categoria
 	public function fields()
 	{
-		if(isset($_GET['expand']) && $_GET['expand']=='categoria'){
-			return ['id', 'cognome', 'nome', 'mobile', 'email' ];
-		}
-		else {
-			return ['id', 'cognome', 'nome', 'mobile', 'email', 'id_categoria' ];
-		}
+		$fields = parent::fields();
+		if(isset($_GET['expand'])){
+			$param=explode(',', $_GET['expand']);
+			foreach ($param as $key => $field)
+				if(trim($field) == 'categoria')
+					unset($fields['id_categoria']);
+		}		
+		return $fields;
 	}
 
 
