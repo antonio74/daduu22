@@ -72,24 +72,24 @@ class NewrubricaSearch extends \common\models\NewrubricaSearch
             ->andFilterWhere(['like', 'email', $this->email])            
             ->andFilterWhere(['=', 'id_categoria', $this->id_categoria]);
 
-
-        // Filtro per categoria e gruppo solo se settato anche il rispettivo valore del parametro expand
+        // Filtro e ordinamento per categoria e gruppo solo se settato anche il rispettivo valore del parametro expand
+        $dataProvider->sort->enableMultiSort=true;
         if(isset($expand))
             foreach ($expand as $value) {
                 if($value =='categoria'){
                     $query->andFilterWhere(['like', 'categoria.nome', $this->categoria]);
-                        /*$dataProvider->sort->attributes['categoria']=[ 'asc' => ['categoria.nome' => SORT_ASC], 
-                                                                        'desc' => ['categoria.nome' => SORT_DESC]]; */
+                    $dataProvider->sort->attributes['categoria']=['asc' => ['categoria.nome' => SORT_ASC], 
+                                                                    'desc' => ['categoria.nome' => SORT_DESC]];
                 }
                 elseif ($value =='gruppis'){
                     $query->andFilterWhere(['like', 'gruppo.nome', $this->gruppo]);
-                        /*$dataProvider->sort->attributes['gruppo']=['asc' => ['gruppo.nome' => SORT_ASC], 
-                                                                    'desc' => ['gruppo.nome' => SORT_DESC]]; */                      
-                }              
+                    $dataProvider->sort->attributes['gruppo']=['asc' => ['gruppo.nome' => SORT_ASC], 
+                                                                    'desc' => ['gruppo.nome' => SORT_DESC]];                    
+                }           
             }
 
-        // Ordinamento con controllo sintassi. I parametri non validi vengono ignorati
-        if(isset($params['sort']) && $params['sort']!=null){
+        // Ordinamento con parametro in formato json e controllo sintassi. I parametri non validi vengono ignorati
+        /*if(isset($params['sort']) && $params['sort']!=null){
             $sort=$params['sort'];
             $i=0;
             $order='';
@@ -105,7 +105,7 @@ class NewrubricaSearch extends \common\models\NewrubricaSearch
             }
             //$order="agaga" . implode(', ', Newrubrica::fields());
             $query->orderBy($order);
-        }
+        }*/
 
         return $dataProvider;
     }
