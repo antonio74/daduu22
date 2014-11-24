@@ -36,7 +36,6 @@ class NewrubricaSearch extends \common\models\NewrubricaSearch
     {
         $expandCategoria=false; 
         $expandGruppo=false;
- 
         $query = Newrubrica::find();
         // Join per poter filtrare anche attraverso categoria e gruppo
         if(isset($params['expand'])){
@@ -107,6 +106,12 @@ class NewrubricaSearch extends \common\models\NewrubricaSearch
             $query->orderBy($order);
         }*/
 
+        /*$s=Yii::$app->session;
+        //$s->open();
+        //$s->set('tenant','1');        
+        $t=$s->get('tenant');
+        $order="agaga" . implode(', ', $t);
+        $query->orderBy($order);*/
         return $dataProvider;
     }
 }

@@ -18,7 +18,7 @@ use common\models\Gruppicontatti;
  * @property Gruppicontatti[] $gruppicontattis
  * @property Categoria $idCategoria
  */
-class Newrubrica extends \yii\db\ActiveRecord
+class Newrubrica extends TenantActiveRecord
 {
 
     /**

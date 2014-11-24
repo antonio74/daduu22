@@ -31,7 +31,7 @@ class NewrubricaController extends ActiveController
    * Prepara e restituisce un data provider per la action index utilizzando Newrubricasearch per filtrare e 
    * ordinare le tuple di contatti attraverso più attributi. Per filtrare e ordinare per categoria e gruppo
    * deve essere impostato anche il rispettivo valore del parametro expand.
-   * Esempio: http://host?filter={"attributo1":"valore1", "attributo2":"valore2"}&sort={"attributo1":"asc", "attributo2":"desc"}
+   * Esempio: http://host?filter={"attributo1":"valore1", "attributo2":"valore2"}&sort=attributo1,-attributo2
    * @return ActiveDataProvider  
    */
   public function prepareDataProvider()
