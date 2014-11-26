@@ -13,29 +13,28 @@ class TenantActiveRecord extends \yii\db\ActiveRecord
     public function beforeSave($insert)
     {
         $tenant = $this->getTenant();
-        $this->id_tenant = $tenant;
+        $this->id_tenant = Yii::$app->session['tenant'];
         return parent::beforeSave($insert);
     }
  
-
+    /*  Filtro per tenant di competenza dell'utente utilizzando anche il nome
+     *  della tabella per eliminare  ambiguità nelle join di newrubricaSearch
+     */
 	public static function find()
 	{
-		//$tenant = $this->getTenant();
-    	return parent::find()->where(['newrubrica.id_tenant' => Yii::$app->session['tenant']]);
+    	return parent::find()->where([ parent::tableName().'.id_tenant' => Yii::$app->session['tenant']]);
 	}
-
 
 
     public function beforeDelete()
     {
         if (parent::beforeDelete()) {
             $tenant = $this->getTenant();
-            if ($this->tenant == $tenant)
+            if ($this->id_tenant == Yii::$app->session['tenant'])
                 return true;
         }
         return false;
     }
-
 
  	public function getTenant()
  	{

@@ -15,7 +15,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property Gruppicontatti[] $gruppicontattis
  */
-class Gruppo extends \yii\db\ActiveRecord
+class Gruppo extends TenantActiveRecord
 {
     /**
      * @inheritdoc
@@ -58,6 +58,14 @@ class Gruppo extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTenant()
+    {
+        return $this->hasOne(Tenants::className(), ['id' => 'id_tenant']);
+    }
+
+    /**
      * @return array of group's names
      */    
     public static function getGruppi()
@@ -66,4 +74,6 @@ class Gruppo extends \yii\db\ActiveRecord
         $arrayGruppi = ArrayHelper::map($queryGruppi, 'id', 'nome');
         return $arrayGruppi;
     }
+
+
 }

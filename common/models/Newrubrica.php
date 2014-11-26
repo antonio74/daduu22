@@ -88,6 +88,13 @@ class Newrubrica extends TenantActiveRecord
         return $this->hasOne(Categoria::className(), ['id' => 'id_categoria']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTenant()
+    {
+        return $this->hasOne(Tenants::className(), ['id' => 'id_tenant']);
+    }
 
     /*
     * 

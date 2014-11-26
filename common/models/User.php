@@ -16,6 +16,8 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
+
 /**
  * User model
  *
@@ -204,5 +206,16 @@ class User extends ActiveRecord implements IdentityInterface
     public function afterFind()
     {
         Yii::$app->session['tenant'] = $this->id_tenant;
+    }
+
+
+    /**
+     * @return array of group's names
+     */    
+    public static function getUsers()
+    {
+        $queryUsers = User::find()->asArray()->all(); 
+        $arrayUsers = ArrayHelper::map($queryUsers, 'id', 'username');
+        return $arrayUsers;
     }
 }

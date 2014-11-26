@@ -15,7 +15,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property Newrubrica[] $newrubricas
  */
-class Categoria extends \yii\db\ActiveRecord
+class Categoria extends TenantActiveRecord
 {
     /**
      * @inheritdoc
@@ -66,4 +66,14 @@ class Categoria extends \yii\db\ActiveRecord
         $arrayCategorie = ArrayHelper::map($queryCategorie, 'id', 'nome'); 
         return $arrayCategorie;
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTenant()
+    {
+        return $this->hasOne(Tenants::className(), ['id' => 'id_tenant']);
+    }
+
+
 }
