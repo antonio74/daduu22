@@ -22,6 +22,8 @@ $tenantUsers = User::getUsers();
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    	<?= $model->isNewRecord ? null : Html::a(Yii::t('app', 'Create User'), ['createuser', 'tenantname' => $model->nome, 'tenantid' => $model->id], 
+    		['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -8,6 +8,7 @@ use backend\models\TenantsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use frontend\models\SignupForm;
 
 /**
  * TenantsController implements the CRUD actions for Tenants model.
@@ -25,6 +26,29 @@ class TenantsController extends Controller
             ],
         ];
     }
+
+
+    /**
+     * Creates a new User for current Tenant.
+     * If creation is successful, the browser will be redirected to tenant 'view' page.
+     * @return mixed
+     */
+    public function actionCreateuser()
+    {
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->signup()) {
+                return $this->actionView($model->id_tenant);
+               
+            }
+        }
+
+        return $this->render('createuser', [
+            'model' => $model,
+        ]);
+    }
+
+
 
     /**
      * Lists all Tenants models.

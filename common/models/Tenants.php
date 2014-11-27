@@ -96,6 +96,10 @@ class Tenants extends \yii\db\ActiveRecord
     }
 
 
+    /**
+     * Generate the first user when create a tenant
+     * @return 
+     */
     public function afterSave($insert, $changedAttributes)
     {
         $connection = \Yii::$app->db;
@@ -122,5 +126,22 @@ class Tenants extends \yii\db\ActiveRecord
             }
         }*/
 
+    }
+
+
+    /** 
+     * Generate the usernames string of the current tenant
+     */
+    public function usernamesToString()
+    {
+        $users = User::getUsers();
+        $usernames = "";
+        foreach ($this->tenantUsers as $key => $idUser) {
+            if ($usernames !== ""){
+                $usernames = $usernames.", ";
+            }
+            $usernames = $usernames.$users[$idUser];
+        }
+        return $usernames;
     }
 }

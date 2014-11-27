@@ -13,6 +13,7 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $id_tenant;
 
     /**
      * @inheritdoc
@@ -32,11 +33,13 @@ class SignupForm extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
+
+            ['id_tenant', 'safe'],
         ];
     }
 
     /**
-     * Signs user up.
+     * Signs user up and store it in related tenant if is setted up or '1' by default.
      *
      * @return User|null the saved model or null if saving fails
      */
@@ -44,6 +47,8 @@ class SignupForm extends Model
     {
         if ($this->validate()) {
             $user = new User();
+            if($this->id_tenant != null)
+                $user->id_tenant = $this->id_tenant;            
             $user->username = $this->username;
             $user->email = $this->email;
             $user->setPassword($this->password);

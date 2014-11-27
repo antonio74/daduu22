@@ -9,6 +9,7 @@ use yii\widgets\DetailView;
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Tenants'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$users = $model->usernamesToString();
 ?>
 <div class="tenants-view">
 
@@ -30,6 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'nome',
+            [ 'label' =>'Users', 'value' => $users],
+
         ],
     ]) ?>
 
