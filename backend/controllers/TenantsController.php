@@ -4,11 +4,14 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\Tenants;
+use common\models\User;
 use backend\models\TenantsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use frontend\models\SignupForm;
+use yii\filters\AccessControl;
+
 
 /**
  * TenantsController implements the CRUD actions for Tenants model.
@@ -18,6 +21,16 @@ class TenantsController extends Controller
     public function behaviors()
     {
         return [
+        'access' => [        
+            'class' => AccessControl::className(),
+            'rules' => [        
+                [
+                'actions' => ['index', 'view', 'create', 'delete', 'update', 'createuser'],
+                'allow' => User::isAdmin(),
+                //'roles' => ['@'],
+                ]
+            ]
+        ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -86,7 +99,7 @@ class TenantsController extends Controller
     {
         $model = new Tenants();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) { 
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [

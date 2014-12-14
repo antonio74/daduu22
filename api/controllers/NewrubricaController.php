@@ -20,7 +20,6 @@ class NewrubricaController extends ActiveController
   public function actions()
   {
     $actions = parent::actions();
-
     // personalizza il data provider preparation con il metodo "prepareDataProvider()"
     $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
 

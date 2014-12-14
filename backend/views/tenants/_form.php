@@ -16,6 +16,7 @@ $tenantUsers = User::getUsers();
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'nome')->textInput(['maxlength' => 255]) ?>
+    <?= $form->field($model, 'username') ?>
 
     <!--  <?= $form->field($model, 'tenantUsers')->checkBoxList($tenantUsers) ?> -->
 

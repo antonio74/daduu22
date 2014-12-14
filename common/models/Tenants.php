@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use common\models\User;
 
 /**
  * This is the model class for table "tenants".
@@ -20,7 +21,7 @@ class Tenants extends \yii\db\ActiveRecord
 
 
     public $tenantUsers = array();
-
+    public $username = '';
 
     /**
      * @inheritdoc
@@ -46,9 +47,10 @@ class Tenants extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nome'], 'required'],
+            [['nome', 'username'], 'required'],
             [['nome'], 'string', 'max' => 255],
-            [['tenantUsers'], 'safe']
+            [['tenantUsers'], 'safe'],
+            [['username'], 'validateUser']
         ];
     }
 
@@ -111,7 +113,7 @@ class Tenants extends \yii\db\ActiveRecord
         $tenantUsers = $this->tenantUsers;
 
         $user = new User();
-        $user->username = 'admin';
+        $user->username = $this->username;
         $user->email = 'admin@libero.it';
         $user->id_tenant = $this->id;
         $user->setPassword('admin');
@@ -130,7 +132,7 @@ class Tenants extends \yii\db\ActiveRecord
 
 
     /** 
-     * Generate the usernames string of the current tenant
+     * Generate the usernames string of current tenant
      */
     public function usernamesToString()
     {
@@ -143,5 +145,22 @@ class Tenants extends \yii\db\ActiveRecord
             $usernames = $usernames.$users[$idUser];
         }
         return $usernames;
+    }
+
+    public function userTenant()
+    {
+        return (in_array(Yii::$app->user->id, $this->tenantUsers));
+    }
+
+
+    /**
+     * Valida username verificando che non sia già presente in User
+     *
+     */
+    public function validateUser($attribute, $params)
+    {
+        if (User::findByUsername($this->username)) {
+            $this->addError($attribute, 'This username already exist!!!');
+        }
     }
 }

@@ -7,11 +7,13 @@ use common\models\Categoria;
 use common\models\Newrubrica;
 use common\models\NewrubricaSearch;
 use common\models\Gruppicontatti;
+use common\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
+use yii\filters\AccessControl;
 
 
 /**
@@ -22,6 +24,27 @@ class NewrubricaController extends Controller
     public function behaviors()
     {
         return [
+        'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['login', 'error'],
+                        'allow' => true,
+                    ],
+    
+                    [
+                        'actions' => ['logout', 'index', 'view'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+
+                    [
+                        'actions' => ['update', 'delete', 'create'],
+                        'allow' => User::isAdmin(),
+                        //'matchCallback' => User::isAdmin()
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
