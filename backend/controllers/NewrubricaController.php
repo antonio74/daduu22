@@ -144,7 +144,7 @@ class NewrubricaController extends Controller
         {
             $model = $this->findModel($_GET['id']);        
             if(!User::isAllowed($model))
-                throw new HttpException(405, "You don't have request privileges to $action->id this contact.");
+                throw new HttpException(403, "You don't have request privileges to $action->id this contact.");
         }
         return $parentAllowed;
 

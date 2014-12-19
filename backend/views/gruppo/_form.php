@@ -12,7 +12,7 @@ $visibilita['gruppo']='Gruppo';
 $visibilita['tenant']='Tenant';
 
 $permessi = array();
-$permessi['R']='Read';
+$permessi['RW'.Yii::$app->user->id]='Read';
 $permessi['RW']='Read/Write';
 
 

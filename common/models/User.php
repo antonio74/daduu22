@@ -245,9 +245,9 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
 
-    public  function isAllowed($model) 
+    public function isAllowed($model) 
     {   
-        if(get_class($model)=='common\models\Newrubrica')
+        if(get_class($model)=='common\models\Newrubrica' || get_class($model)=='api\models\Newrubrica')
             $permessi = $model->getGruppis()->select(['visibilita', 'autorizzati', 'permessi'])->asArray()->all();
         else {
                 $permessi[0]['permessi']=$model->permessi;
