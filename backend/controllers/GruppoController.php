@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\Gruppo;
 use common\models\GruppoSearch;
+use common\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -80,6 +81,9 @@ class GruppoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        if(!User::isAllowed($model))
+            return $this->render('/site/error', ['name' => 'Access Denied', 
+                                    'message' => "You don't have request privileges to update this group."]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -98,8 +102,12 @@ class GruppoController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        if(!User::isAllowed($model))
+            return $this->render('/site/error', ['name' => 'Access Denied', 
+                                    'message' => "You don't have request privileges to delete this group."]);
 
+        $model->delete();
         return $this->redirect(['index']);
     }
 

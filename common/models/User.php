@@ -17,6 +17,9 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
+use yii\backend\controllers\NewrubricaController;
+use yii\web\HttpException;
+
 
 
 
@@ -208,6 +211,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function afterFind()
     {
         Yii::$app->session['tenant'] = $this->id_tenant;
+        Yii::$app->session['group'] = $this->getGruppo()->select('name')->column();        
 
     }
 
@@ -223,8 +227,41 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
 
+    public function getGruppo()
+    {
+        return $this->hasMany(Groups::className(), ['id' => 'id_group'])->via('usergroups');
+    }
 
-    public function isAdmin() {
-        return (Yii::$app->user->id == '1');
+
+    public function getUsergroups()
+    {
+        return $this->hasMany(Usersgroups::className(), ['id_user' => 'id']);
+    }
+
+
+    public function isAdmin() 
+    {
+        return (Yii::$app->session['group'][0] == 'admin');
+    }
+
+
+    public  function isAllowed($model) 
+    {   
+        if(get_class($model)=='common\models\Newrubrica')
+            $permessi = $model->getGruppis()->select(['visibilita', 'autorizzati', 'permessi'])->asArray()->all();
+        else {
+                $permessi[0]['permessi']=$model->permessi;
+                $permessi[0]['autorizzati']=$model->autorizzati;
+                $permessi[0]['visibilita']=$model->visibilita;                
+        }
+    
+        foreach ($permessi as $key) {      
+            if( ($key['permessi'] == 'RW' ||  ltrim($key['permessi'], 'RW') == Yii::$app->user->id) && 
+                (($key['visibilita'] == 'gruppo' && $key['autorizzati'] == Yii::$app->session['group'][0]) ||
+                 ($key['visibilita'] == 'tenant' && $key['autorizzati'] == Yii::$app->session['tenant']) ||
+                 ($key['visibilita'] == 'privato' && $key['autorizzati'] == Yii::$app->user->id)))
+            return true;
+        }
+        return false;
     }
 }

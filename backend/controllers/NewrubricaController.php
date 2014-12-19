@@ -14,7 +14,7 @@ use yii\filters\VerbFilter;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\filters\AccessControl;
-
+use yii\web\HttpException;
 
 /**
  * NewrubricaController implements the CRUD actions for Newrubrica model.
@@ -40,7 +40,7 @@ class NewrubricaController extends Controller
 
                     [
                         'actions' => ['update', 'delete', 'create'],
-                        'allow' => User::isAdmin(),
+                        'allow' => true,
                         //'matchCallback' => User::isAdmin()
                     ],
                 ],
@@ -109,7 +109,7 @@ class NewrubricaController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($id);        
         $categorie = Categoria::getCategorie();   
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -130,10 +130,26 @@ class NewrubricaController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        $model = $this->findModel($id);
+        $model->delete();
         return $this->redirect(['index']);
     }
+
+
+
+    public function beforeAction($action)
+    {
+        $parentAllowed = parent::beforeAction($action);
+        if($action->id == 'update' || $action->id == 'delete')
+        {
+            $model = $this->findModel($_GET['id']);        
+            if(!User::isAllowed($model))
+                throw new HttpException(405, "You don't have request privileges to $action->id this contact.");
+        }
+        return $parentAllowed;
+
+    }
+
 
     /**
      * Finds the Newrubrica model based on its primary key value.

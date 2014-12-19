@@ -32,7 +32,7 @@ class Gruppo extends TenantActiveRecord
     {
         return [
             [['nome'], 'required'],
-            [['descrizione'], 'string'],
+            [['descrizione', 'visibilita', 'permessi', 'autorizzati'], 'string'],
             [['nome'], 'string', 'max' => 255]
         ];
     }
@@ -70,10 +70,38 @@ class Gruppo extends TenantActiveRecord
      */    
     public static function getGruppi()
     {
-        $queryGruppi = Gruppo::find()->asArray()->all(); 
+        $queryGruppi = Gruppo::find()->andWhere(['or', ['permessi' => 'RW'], ['permessi' => 'RW'.Yii::$app->user->id]])
+                                        ->andWhere(['or', ['visibilita' => 'privato', 'autorizzati' => Yii::$app->user->id],
+                                                          ['visibilita' => 'gruppo', 'autorizzati' => Yii::$app->session['group'][0]],
+                                                          ['visibilita' => 'tenant', 'autorizzati' => Yii::$app->session['tenant']]])
+                                        ->asArray()->all(); 
         $arrayGruppi = ArrayHelper::map($queryGruppi, 'id', 'nome');
         return $arrayGruppi;
     }
 
+
+    //saving model->id_tenant to all tables automatic
+    public function beforeSave($insert)
+    {
+        if($this->visibilita == 'gruppo')
+            $this->autorizzati = Yii::$app->session['group'][0];
+         elseif($this->visibilita == 'privato')
+             $this->autorizzati = Yii::$app->user->id;
+          elseif($this->visibilita == 'tenant')
+              $this->autorizzati = Yii::$app->session['tenant'];
+        return parent::beforeSave($insert);
+    }    
+
+
+
+    public static function getAllGruppi()
+    {
+        $queryGruppi = Gruppo::find()->andWhere(['or', ['visibilita' => 'privato', 'autorizzati' => Yii::$app->user->id],
+                                                          ['visibilita' => 'gruppo', 'autorizzati' => Yii::$app->session['group'][0]],
+                                                          ['visibilita' => 'tenant', 'autorizzati' => Yii::$app->session['tenant']]])
+                                    ->asArray()->all(); 
+        $arrayGruppi = ArrayHelper::map($queryGruppi, 'id', 'nome');
+        return $arrayGruppi;
+    }
 
 }

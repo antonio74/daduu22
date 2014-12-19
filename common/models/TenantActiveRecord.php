@@ -22,7 +22,9 @@ class TenantActiveRecord extends \yii\db\ActiveRecord
      */
 	public static function find()
 	{
-    	return parent::find()->where([ parent::tableName().'.id_tenant' => Yii::$app->session['tenant']]);
+    	$model = parent::find();
+        $model->where([ parent::tableName().'.id_tenant' => Yii::$app->session['tenant'] ]);
+        return $model;
 	}
 
 

@@ -41,7 +41,10 @@ class NewrubricaSearch extends Newrubrica
      */
     public function search($params)
     {
-        $query = Newrubrica::find();
+        $query = Newrubrica::find()->joinWith('gruppis')
+                                    ->andFilterWhere(['or',  ['visibilita' => 'gruppo', 'gruppo.autorizzati' => Yii::$app->session['group'][0]],
+                                                             ['visibilita' => 'privato', 'gruppo.autorizzati' => Yii::$app->user->id],
+                                                             ['visibilita' => 'tenant', 'gruppo.autorizzati' => Yii::$app->session['tenant']]]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

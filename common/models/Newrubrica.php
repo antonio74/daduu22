@@ -73,6 +73,18 @@ class Newrubrica extends TenantActiveRecord
     
 
     /**
+     *
+     * @return ActiveQuery - Questa funzione  rappresenta una relazione  che restituisce i dettagli del 
+     *                       gruppo relativo ad un contatto attraverso la tabella pivot gruppicontatti.
+     */
+    public function getGruppis()
+    {
+        return $this->hasMany(Gruppo::className(), ['id' => 'id_gruppo'])->via('gruppicontattis');
+    }
+
+    
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getGruppicontattis()
@@ -119,13 +131,14 @@ class Newrubrica extends TenantActiveRecord
 
     public function stringaGruppi()
     {
-        $nomiGruppi = Gruppo::getGruppi();
+        $nomiGruppi = Gruppo::getAllGruppi();
         $gruppi = "";
         foreach ($this->gruppi as $key => $idGruppo) {
             if ($gruppi!==""){
                 $gruppi = $gruppi.", ";
             }
-            $gruppi = $gruppi.$nomiGruppi[$idGruppo];
+            if(array_key_exists($idGruppo, $nomiGruppi))
+                $gruppi = $gruppi.$nomiGruppi[$idGruppo];
         }
         return $gruppi;
     }

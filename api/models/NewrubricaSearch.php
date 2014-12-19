@@ -36,7 +36,10 @@ class NewrubricaSearch extends \common\models\NewrubricaSearch
     {
         $expandCategoria=false; 
         $expandGruppo=false;
-        $query = Newrubrica::find();
+        $query = Newrubrica::find()->joinWith('gruppis')
+                                    ->andFilterWhere(['or',  ['visibilita' => 'gruppo', 'gruppo.autorizzati' => Yii::$app->session['group'][0]],
+                                                             ['visibilita' => 'privato', 'gruppo.autorizzati' => Yii::$app->user->id],
+                                                             ['visibilita' => 'tenant', 'gruppo.autorizzati' => Yii::$app->session['tenant']]]);
         // Join per poter filtrare anche attraverso categoria e gruppo
         if(isset($params['expand'])){
             $expand = array_map('trim',explode(",", $params['expand']));
