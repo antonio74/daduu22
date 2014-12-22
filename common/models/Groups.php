@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
+
 
 /**
  * This is the model class for table "groups".
@@ -53,5 +55,13 @@ class Groups extends \yii\db\ActiveRecord
     public function getUsersgroups()
     {
         return $this->hasMany(Usersgroups::className(), ['id_group' => 'id']);
+    }
+
+
+    public static function getGroups()
+    {
+        $queryGruppi = Groups::find()->asArray()->all(); 
+        $arrayGruppi = ArrayHelper::map($queryGruppi, 'id', 'name');
+        return $arrayGruppi;
     }
 }

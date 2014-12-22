@@ -2,6 +2,7 @@
 namespace frontend\models;
 
 use common\models\User;
+use common\models\Usersgroups;
 use yii\base\Model;
 use Yii;
 
@@ -14,6 +15,8 @@ class SignupForm extends Model
     public $email;
     public $password;
     public $id_tenant;
+    public $groups;
+
 
     /**
      * @inheritdoc
@@ -35,6 +38,7 @@ class SignupForm extends Model
             ['password', 'string', 'min' => 6],
 
             ['id_tenant', 'safe'],
+            ['groups', 'safe'],            
         ];
     }
 
@@ -54,6 +58,10 @@ class SignupForm extends Model
             $user->setPassword($this->password);
             $user->generateAuthKey();
             $user->save();
+            $group = new Usersgroups();
+            $group->id_user = $user->id;
+            $group->id_group = $this->groups;
+            $group->save();
             return $user;
         }
 

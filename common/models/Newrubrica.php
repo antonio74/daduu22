@@ -4,6 +4,8 @@ namespace common\models;
 
 use Yii;
 use common\models\Gruppicontatti;
+use yii\helpers\ArrayHelper;
+
 
 /**
  * This is the model class for table "newrubrica".
@@ -114,15 +116,23 @@ class Newrubrica extends TenantActiveRecord
     public function afterSave($insert, $changedAttributes)
     {
         $connection = \Yii::$app->db;
+        $queryTuttiGruppi = $this->getGruppis()->asArray()->all();
+        $arrayTuttiGruppi = ArrayHelper::map($queryTuttiGruppi, 'id', 'nome');        
         // if not a new contact, delete all groups 
         if(!$insert){
             Gruppicontatti::deleteAll('id_contatto = :id', [ ':id' => $this->id ]);
         }
 
-        $gruppi = $this->gruppi;
-        $lenght = count($gruppi);
+        $gruppiSelezionati = $this->gruppi;
+        $gruppiScrittura = Gruppo::getGruppi();
+        // aggiunge i gruppi di cui fa parte il contatto e che non ho il permesso di modificare 
+        foreach ($arrayTuttiGruppi as $key => $value) {
+            if(!array_key_exists($key, $gruppiScrittura))
+                array_push($gruppiSelezionati, $key);
+        }
+        $lenght = count($gruppiSelezionati);       
         $contatti = array_fill(0, $lenght, $this->id);
-        $gruppicontatti= array_map(null, $contatti, $gruppi);
+        $gruppicontatti= array_map(null, $contatti, $gruppiSelezionati);
         $connection->createCommand()->batchInsert('gruppicontatti', ['id_contatto', 'id_gruppo'], $gruppicontatti )->execute();
 
     }

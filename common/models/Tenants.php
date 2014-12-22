@@ -23,6 +23,7 @@ class Tenants extends \yii\db\ActiveRecord
     public $tenantUsers = array();
     public $username = '';
 
+
     /**
      * @inheritdoc
      */

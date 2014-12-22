@@ -2,6 +2,8 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use common\models\Tenants;
+use common\models\Groups;
+
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
@@ -12,6 +14,7 @@ $tenantId = $_REQUEST['tenantid'];
 $this->title = 'Create a new user for ' . $tenantName . ' tenant';
 $this->params['breadcrumbs'][] = $this->title;
 $model->id_tenant = $tenantId;
+$groups = Groups::getGroups();
 ?>
 <div class="site-signup">
     <h1><?= Html::encode($this->title) ?></h1>
@@ -25,6 +28,8 @@ $model->id_tenant = $tenantId;
                 <?= $form->field($model, 'email') ?>
                 <?= $form->field($model, 'id_tenant')->hiddenInput()->label('') ?>
                 <?= $form->field($model, 'password')->passwordInput() ?>
+                <?= $form->field($model, 'groups')->radioList($groups) ?>
+
                 <div class="form-group">
                     <?= Html::submitButton('Create', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
                 </div>
