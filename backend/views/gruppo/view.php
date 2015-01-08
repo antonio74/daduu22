@@ -9,6 +9,16 @@ use yii\widgets\DetailView;
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Gruppos'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+if($model->visibilita!='privato')
+    $visibilita=$visibilita=ucfirst($model->visibilita) . ' ' . $model->autorizzati;
+else $visibilita=$model->visibilita;
+
+if($model->permessi=='RW')
+    $permessi='Read/Write';
+else $permessi='Read';
+
+
 ?>
 <div class="gruppo-view">
 
@@ -31,6 +41,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'nome',
             'descrizione:ntext',
+            [ 'label' => 'Visibilità', 'value' => $visibilita ],
+            [ 'label' => 'Permessi', 'value' => $permessi ]
         ],
     ]) ?>
 
