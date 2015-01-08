@@ -5,6 +5,7 @@ namespace api\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use common\models\User;
 
 /**
  * NewrubricaSearch represents the model behind the search form about `\api\models\Newrubrica`.
@@ -36,10 +37,8 @@ class NewrubricaSearch extends \common\models\NewrubricaSearch
     {
         $expandCategoria=false; 
         $expandGruppo=false;
-        $query = Newrubrica::find()->joinWith('gruppis')
-                                    ->andFilterWhere(['or',  ['visibilita' => 'gruppo', 'gruppo.autorizzati' => Yii::$app->session['group'][0]],
-                                                             ['visibilita' => 'privato', 'gruppo.autorizzati' => Yii::$app->user->id],
-                                                             ['visibilita' => 'tenant', 'gruppo.autorizzati' => Yii::$app->session['tenant']]]);
+        $query = User::readFilter(Newrubrica::find()->joinWith('gruppis'));
+                                    
         // Join per poter filtrare anche attraverso categoria e gruppo
         if(isset($params['expand'])){
             $expand = array_map('trim',explode(",", $params['expand']));

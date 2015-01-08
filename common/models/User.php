@@ -240,15 +240,18 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
 
-    public function isAdmin() 
+    public static function isAdmin() 
     {
         return (Yii::$app->session['group'][0] == 'admin');
     }
 
-
-    public function isAllowed($model) 
+    /*
+     * Controlla se l'utente ha il permesso in scrittura su un singolo record
+     *
+     */
+    public static function isAllowed($model) 
     {   
-        if(get_class($model)=='common\models\Newrubrica' || get_class($model)=='api\models\Newrubrica')
+        if(array_pop(explode("\\", get_class($model)))=='Newrubrica')
             $permessi = $model->getGruppis()->select(['visibilita', 'autorizzati', 'permessi'])->asArray()->all();
         else {
                 $permessi[0]['permessi']=$model->permessi;
@@ -264,5 +267,13 @@ class User extends ActiveRecord implements IdentityInterface
             return true;
         }
         return false;
+    }
+
+    // Filtra applicando i criteri per i permessi in lettura
+    public static function readFilter($model)
+    {
+        return $model->andFilterWhere(['or',  ['visibilita' => 'gruppo', 'gruppo.autorizzati' => Yii::$app->session['group'][0]],
+                                                ['visibilita' => 'privato', 'gruppo.autorizzati' => Yii::$app->user->id],
+                                                ['visibilita' => 'tenant', 'gruppo.autorizzati' => Yii::$app->session['tenant']]]);
     }
 }

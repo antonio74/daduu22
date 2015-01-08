@@ -6,6 +6,8 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Gruppo;
+use common\models\User;
+
 
 /**
  * GruppoSearch represents the model behind the search form about `common\models\Gruppo`.
@@ -41,10 +43,7 @@ class GruppoSearch extends Gruppo
      */
     public function search($params)
     {
-        $query = Gruppo::find()->andFilterWhere(['or',  ['visibilita' => 'gruppo', 'gruppo.autorizzati' => Yii::$app->session['group'][0]],
-                                                        ['visibilita' => 'privato', 'gruppo.autorizzati' => Yii::$app->user->id],
-                                                        ['visibilita' => 'tenant', 'gruppo.autorizzati' => Yii::$app->session['tenant']]]);
-
+        $query = User::readFilter(Gruppo::find());
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
